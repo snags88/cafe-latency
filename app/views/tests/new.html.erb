@@ -4,7 +4,7 @@
 
 
 <script type="text/javascript">
-  SomApi.account = "SOM55ad2bab0aa7d";   //your API Key here
+  SomApi.account = "<%= ENV['SPEED_KEY'] %>";   //your API Key here
   SomApi.domainName = "cafe-latency.herokuapp.com";      //your domain or sub-domain here
   SomApi.config.sustainTime = 4;
   SomApi.onTestCompleted = onTestCompleted;
