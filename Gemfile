@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg'
+gem 'yelp', require: 'yelp'
+gem 'awesome_print', '~> 1.6.1'
 
 group :development, :test do
   gem 'byebug'
@@ -28,6 +30,7 @@ group :test, :development do
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'thin'
+  gem 'figaro'
 end
 
 group :production do

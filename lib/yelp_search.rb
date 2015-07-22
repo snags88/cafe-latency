@@ -2,9 +2,14 @@ require 'yelp'
 
 class YelpSearch
 
-  attr_accessor :client, :limit, :offset
+  attr_accessor :client, :limit, :offset, :location, :term, :result_hash
 
-  def initialize
+  def initialize(args)
+    @term  = args[:term]
+    @limit = args[:limit]
+    @offset = args[:offset]
+    @location = args[:location]
+    @category = args[:category]
     @client = Yelp::Client.new({ consumer_key: ENV["YELP_CONSUMER_KEY"],
                                  consumer_secret: ENV["YELP_CONSUMER_SECRET"],
                                  token: ENV["YELP_TOKEN"],
@@ -12,17 +17,17 @@ class YelpSearch
                               })
   end
 
-  def search
-    params = { term: 'cafe',
-               limit: 3,
-               offset: 1
+  def overall_list
+    params = { term: @term,
+               category: @category,
+               limit: @limit,
+               offset: @offset
              }
-    hash = @client.search('New York', params);
+    @result_hash = @client.search(@location, params).businesses;
   end
 
+
 end
-
-
 
 
 
