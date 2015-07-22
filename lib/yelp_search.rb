@@ -26,7 +26,6 @@ class YelpSearch
     @result_hash = @client.search(@location, params).businesses;
   end
 
-
 end
 
 
