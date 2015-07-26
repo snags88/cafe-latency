@@ -1,0 +1,6 @@
+= form_tag('/search', method: :get) do
+  p Search
+  = text_field_tag :name, nil, placeholder: 'Search for a cafe'
+  = text_field_tag :location, nil, placeholder: 'Search for a location'
+  = submit_tag 'Search'
+end

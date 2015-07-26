@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'stores#search'
+  root 'stores#index'
 
-  get 'stores/search', to: 'stores#search', as: 'search'
+  get '/search', to: 'stores#search', as: 'search'
 
   resources :stores, only: [:index, :show]
   resources :tests, only: [:new, :create]
