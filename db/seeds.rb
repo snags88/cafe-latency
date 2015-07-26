@@ -10,7 +10,7 @@ while counter <= 200
                            )
 
   yelp_search.overall_list.each do |cafe|
-    Store.create(
+    store = Store.create(
                 :name => cafe.name,
                 :uid => cafe.id,
                 :url => cafe.url,
@@ -20,6 +20,9 @@ while counter <= 200
                 :postal_code => cafe.location.postal_code,
                 :state_code => cafe.location.state_code
               )
+    if cafe.location.respond_to?(:neighborhoods)
+      store.update(:neighborhoods => cafe.location.neighborhoods)
+    end
   end
   counter += 20
 end
