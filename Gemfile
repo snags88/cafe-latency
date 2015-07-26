@@ -11,6 +11,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg'
 gem 'yelp', require: 'yelp'
 gem 'awesome_print', '~> 1.6.1'
+gem 'slim'
 
 group :development, :test do
   gem 'byebug'
