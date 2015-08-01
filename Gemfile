@@ -12,6 +12,7 @@ gem 'pg'
 gem 'yelp', require: 'yelp'
 gem 'awesome_print', '~> 1.6.1'
 gem 'slim'
+gem 'fuzzily'
 
 group :development, :test do
   gem 'byebug'
