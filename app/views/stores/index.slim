@@ -1,6 +1,9 @@
-= form_tag('/search', method: :get) do
+= form_for(:store, method: :get, url: {action: "search"}) do |f|
   p Search
-  = text_field_tag :name, nil, placeholder: 'Search for a cafe'
-  = text_field_tag :location, nil, placeholder: 'Search for a location'
-  = submit_tag 'Search'
+  = f.label :name
+  = f.text_field :name, placeholder: 'Search for a cafe'
+  br/
+  = f.label :location
+  = f.text_field :location, placeholder: 'Search for a location'
+  = f.submit 'Search'
 end
