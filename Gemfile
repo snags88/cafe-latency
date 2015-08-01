@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'slim'
 gem 'fuzzily'
+gem 'browserify-rails'
 
 group :test, :development do
   gem 'byebug'
