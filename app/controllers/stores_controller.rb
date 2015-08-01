@@ -1,19 +1,8 @@
 class StoresController < ApplicationController
   def search
-    location = params[:location]
-    name = params[:name]
-
-    if name.empty?
-      neighborhood = SearchLocation.where(:name => (location + " New York")).first
-      @stores = Store.near([neighborhood.latitude, neighborhood.longitude], 1.5)
-    elsif location.empty?
-      @stores = Store.find_by_fuzzy_name(name)
-    else
-      neighborhood = SearchLocation.where(:name => (location + " New York")).first
-      result = Store.find_by_fuzzy_name(name).first
-      @stores = result.nearbys(1)
-      @stores.unshift(result)
-    end
+    search_result = search_service
+    search_result.check_parameters
+    @stores = search_result.stores
   end
 
   def index
@@ -21,5 +10,14 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
+  end
+
+  private
+
+  def search_service
+    SearchService.new({
+      location: params[:location],
+      name: params[:name]
+      })
   end
 end
