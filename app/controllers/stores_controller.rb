@@ -1,15 +1,7 @@
 class StoresController < ApplicationController
   def search
-    search_result = search_service
-    search_result.check_parameters
-    @stores = search_result.stores
-    if @stores == nil
-      flash[:notice] = "Both fields can not be blank!"
-      redirect_to root_path
-    elsif @stores == "invalid location"
-      flash[:notice] = "Invalid location!"
-      redirect_to root_path
-    end
+    @stores = SearchService.new(store_params).execute
+    alert_check
   end
 
   def index
@@ -21,10 +13,17 @@ class StoresController < ApplicationController
 
   private
 
-  def search_service
-    SearchService.new({
-      location: params[:location],
-      name: params[:name]
-      })
+  def store_params
+    params.require(:store).permit(:name, :location)
+  end
+
+  def alert_check
+    if @stores == nil
+      flash[:notice] = "Both fields can not be blank!"
+      redirect_to root_path
+    elsif @stores == "invalid location"
+      flash[:notice] = "Invalid location!"
+      redirect_to root_path
+    end
   end
 end

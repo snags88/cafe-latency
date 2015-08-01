@@ -6,6 +6,11 @@ class SearchService
     @location = params[:location]
   end
 
+  def execute
+    check_parameters
+    @stores
+  end
+
   def check_parameters
     if @location.empty? && @name.empty?
       @stores= nil
