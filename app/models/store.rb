@@ -4,11 +4,6 @@ class Store < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
   fuzzily_searchable :name
 
-  def self.find_first_fuzzy(name)
-    self.find_by_fuzzy_name(name).first
-  end
-
-  
   private
     def full_address
       "#{address} #{city} #{state_code} #{postal_code}"

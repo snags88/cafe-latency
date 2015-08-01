@@ -7,16 +7,25 @@ class SearchService
   end
 
   def check_parameters
-    if @name.empty?
+    if @location.empty? && @name.empty?
+      @stores= nil
+    elsif @name.empty?
       neighborhood = SearchLocation.find_using(@location)
-      @stores = Store.near([neighborhood.latitude, neighborhood.longitude], 1.5)
+      neighborhood == nil ?
+        @stores = "invalid location" :
+        @stores = Store.near([neighborhood.latitude, neighborhood.longitude], 1.5)
     elsif @location.empty?
       @stores = Store.find_by_fuzzy_name(@name)
     else
       neighborhood = SearchLocation.find_using(@location)
-      result = Store.find_first_fuzzy(@name)
-      @stores = result.nearbys(1.5)
-      @stores.unshift(result)
+      if neighborhood == nil
+        @stores = "invalid location" 
+      else
+        result = Store.find_by_fuzzy_name(@name)
+        @stores = result.collect do |store|
+          store if store.distance_from([neighborhood.latitude,neighborhood.longitude]) <= 1.5
+        end.compact
+      end
     end
   end
 end

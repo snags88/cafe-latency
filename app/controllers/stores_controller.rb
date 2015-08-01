@@ -3,6 +3,13 @@ class StoresController < ApplicationController
     search_result = search_service
     search_result.check_parameters
     @stores = search_result.stores
+    if @stores == nil
+      flash[:notice] = "Both fields can not be blank!"
+      redirect_to root_path
+    elsif @stores == "invalid location"
+      flash[:notice] = "Invalid location!"
+      redirect_to root_path
+    end
   end
 
   def index
