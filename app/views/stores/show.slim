@@ -1,0 +1,14 @@
+h1
+  a[href==@store.url]
+    =@store.name
+h2 Yelp Rating
+.rating
+  p=@store.rating
+h3 Address
+.address
+  p=@store.address
+  p
+    =@store.city
+    | ,
+    =<>@store.state_code
+    =@store.postal_code
