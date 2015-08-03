@@ -7,31 +7,35 @@ class SearchService
   end
 
   def execute
-    check_parameters
-    @stores
+    find_stores
   end
 
-  def check_parameters
-    if @location.empty? && @name.empty?
-      @stores= nil
-    elsif @name.empty?
-      neighborhood = SearchLocation.find_using(@location)
-      neighborhood == nil ?
-        @stores = "invalid location" :
-        @stores = Store.near([neighborhood.latitude, neighborhood.longitude], 1.5)
-    elsif @location.empty?
-      @stores = Store.find_by_fuzzy_name(@name)
+  private
+
+  def find_stores
+    if neighborhood = SearchLocation.find_using(@location)
+      location_search = Store.near([neighborhood.latitude, neighborhood.longitude], 1.0)
     else
-      neighborhood = SearchLocation.find_using(@location)
-      if neighborhood == nil
-        @stores = "invalid location" 
-      else
-        result = Store.find_by_fuzzy_name(@name)
-        @stores = result.collect do |store|
-          store if store.distance_from([neighborhood.latitude,neighborhood.longitude]) <= 1.5
-        end.compact
-      end
+      location_search = []
     end
+
+    name_search = Store.find_by_fuzzy_name(@name) if name_present?
+
+    if location_present? && name_present?
+      name_search & location_search
+    elsif location_present?
+      location_search
+    elsif name_present?
+      name_search
+    end
+  end
+
+  def location_present?
+    !@location.empty?
+  end
+
+  def name_present?
+    !@name.empty?
   end
 end
 

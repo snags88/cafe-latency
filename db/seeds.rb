@@ -27,6 +27,8 @@ while counter <= 200
   counter += 20
 end
 
+sleep 5
+
 CITIES = ["Alphabet City New York",
 "Astoria New York",
 "Battery Park City New York",
@@ -51,8 +53,16 @@ CITIES = ["Alphabet City New York",
 "Flushing New York",
 "Fort Greene New York",
 "Gowanus New York",
-"Gramercy Park New York",
-"Greenpoint New York",
+"Gramercy Park New York"]
+
+CITIES.each do |city|
+  coordinates = Geocoder.coordinates(city)
+  SearchLocation.create(:name => city, :latitude => coordinates.first, :longitude => coordinates.last)
+end
+
+sleep 5
+
+CITIES = ["Greenpoint New York",
 "Greenwich Village New York",
 "Harlem New York",
 "Hell's Kitchen New York",
@@ -71,8 +81,16 @@ CITIES = ["Alphabet City New York",
 "Morningside Heights New York",
 "Murray Hill New York",
 "Noho New York",
-"Nolita New York",
-"Park Slope New York",
+"Nolita New York"]
+
+CITIES.each do |city|
+  coordinates = Geocoder.coordinates(city)
+  SearchLocation.create(:name => city, :latitude => coordinates.first, :longitude => coordinates.last)
+end
+
+sleep 5
+
+CITIES = ["Park Slope New York",
 "Prospect Heights New York",
 "Red Hook New York",
 "Ridgewood New York",
@@ -92,7 +110,3 @@ CITIES.each do |city|
   coordinates = Geocoder.coordinates(city)
   SearchLocation.create(:name => city, :latitude => coordinates.first, :longitude => coordinates.last)
 end
-
-
-
-
