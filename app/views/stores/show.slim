@@ -12,3 +12,15 @@ h3 Address
     | ,
     =<>@store.state_code
     =@store.postal_code
+
+h3 Current IP:  
+= @current_ip
+
+h3 Distance:
+= @distance
+
+- if within_proximity
+    h2 SpeedOf.Me API Consumer - Sample Page</h2>
+    button id="btnStart" type="button" onclick="btnStartClick()"Start Test
+    div id="msg"
+

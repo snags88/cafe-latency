@@ -2,7 +2,6 @@ class StoresController < ApplicationController
 
   def search
     @stores = SearchService.new(store_params).execute
-
     if @stores == nil
       flash[:notice] = "Both fields can not be blank!"
       redirect_to root_path
@@ -14,6 +13,8 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
+    @current_ip = self.request.remote_ip
+    @distance = @store.distance_to(@current_ip)
   end
 
   private
